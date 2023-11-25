@@ -1,5 +1,5 @@
 # DialDynamo
-爆速AI対話で盛り上がりたいわね
+爆速AI対話で盛り上がりたいわね（作成中のため、まだAIはいません）
 
 ## 事前準備
 - nodejs    20.8.1
@@ -7,15 +7,39 @@
 
 *開発環境は、macOS Sonoma, Google Chromeです*
 
+## 起動
+構成
+```
+┌─────────────────────┐
+│  React Front-end    │   
+│  (localhost:3000)   │
+│      frontend/      │
+└──────────┬──────────┘
+           │ Websocket
+┌──────────┴──────────┐
+│  Python Back-end    │
+│  uvicorn, fastAPI   │
+│  (127.0.0.1:8000)   │
+│ server.py, backend/ │
+└──────────┬──────────┘
+           │ 今後追加予定
+┌──────────┴──────────┐
+│         ...         │
+```
+
 ### フロントエンド
 - React で書いています
 - 音声認識は、[react-speech-recognition](https://www.npmjs.com/package/react-speech-recognition) でブラウザの音声入力を利用します
 - ボタンを見やすくするために react-bootstrap を入れています
 
-**インストール・開発用サーバの起動**
+**インストール**
 ```sh
 cd frontend
 npm install
+```
+
+**開発用サーバの起動**
+```sh
 npm start
 ```
 `http://localhost:3000` で立ち上がります
@@ -25,9 +49,13 @@ npm start
 - FastAPI サーバでユーザ入力テキストを受け取ります
 - サーバの起動には uvicorn を使います
 
-**インストール・開発用サーバの起動**
+**インストール**
 ```sh
 pip install -r requirements.txt
+```
+
+**開発用サーバの起動**
+```sh
 uvicorn server:app --reload
 # uvicorn server:app --reload --log-level="debug" #デバッグログを表示
 ```

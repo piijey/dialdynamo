@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import Stack from 'react-bootstrap/Stack';
 import Container from 'react-bootstrap/Container';
-import ListGroup from 'react-bootstrap/ListGroup';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Accordion from 'react-bootstrap/Accordion';
@@ -41,18 +40,19 @@ const Dictaphone = () => {
   }, []);  
 
   // 自動タイムアウト設定
+  // 書き起こしテキストが一定時間以上更新されないとき、サーバへ送信してリセットする
   const [timeoutId, setTimeoutId] = useState(null);
   useEffect(() => {
     if (listening && transcript) {
       clearTimeout(timeoutId);
       const newTimeoutId = setTimeout(() => {
         console.log("client timeout", transcript)
-        resetTranscript();
         ws.send(JSON.stringify({
           text: transcript,
           timestamp: new Date().toISOString()
         }));
-      }, 5000); // 5秒後にタイムアウト
+      }, 3000); // 3秒でタイムアウト（これが短すぎると、リセット・webscoket送信・次の入力に備える…のタイミングのずれが問題になる）
+      resetTranscript();
       setTimeoutId(newTimeoutId);
     }
   }, [transcript, listening, ws]);
@@ -72,12 +72,9 @@ const Dictaphone = () => {
   // サーバから来たテキストをレンダリング
   const renderMessageTexts = () => {
     const userMessageStyle = {
-      color: '#333'
     };
-  
     const systemMessageStyle = {
       backgroundColor: '#ffe7ba',
-      color: '#333'
     };
 
     return (
@@ -86,7 +83,7 @@ const Dictaphone = () => {
         md='auto'
         key={index}
         style={item.role === 'user' ? userMessageStyle : systemMessageStyle}
-        className={item.role === 'user' ? "rounded-2" : "p-2 mb-1 rounded-2"}
+        className="p-1 rounded-3"
       >
         {item.role === 'user' ? (
           <Stack direction="horizontal" gap={2}>

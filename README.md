@@ -5,10 +5,10 @@
 - nodejs    20.8.1
 - python    3.11.6
 
-*開発環境は、macOS Sonoma, Google Chromeです*
+*開発環境は、macOS 14.x (Sonoma), Google Chromeです*
 
-## 起動
-構成
+## 構成
+ドキュメント・進捗状況のメモは、`progress/` にあります
 ```
 ┌─────────────────────┐
 │  React Front-end    │   
@@ -27,6 +27,7 @@
 │         ...         │
 ```
 
+## 起動手順
 ### フロントエンド
 - React で書いています
 - 音声認識は、[react-speech-recognition](https://www.npmjs.com/package/react-speech-recognition) でブラウザの音声入力を利用します

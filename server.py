@@ -36,7 +36,7 @@ async def receive_transcript_input(websocket, model_input_queue):
         user_message = Message()
         try:
             data = await asyncio.wait_for(websocket.receive_text(), timeout=USER_TIMEOUT)
-            transcript = Message(role="transcript", **json.loads(data))
+            transcript = Message(**json.loads(data))
             user_message, messages = process(transcript, prev_transcript, messages, timedelta(seconds=USER_TIMEOUT))
             prev_transcript = transcript
         except json.JSONDecodeError:
@@ -77,7 +77,7 @@ async def websocket_endpoint(websocket: WebSocket):
     except WebSocketDisconnect as e:
         print(f"WebSocket接続が切断されました: {e}")
     except Exception as e:
-        print(f"WebSocket処理中にエラーが発生しました: {e}")
+        print(f"処理中にエラーが発生しました: {e}")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,52 @@
+.app {
+    display: flex;
+    flex-direction: column;
+}
+
+.hr {
+    margin:0 0 0;
+}
+.transcript {
+    background-color: #eeeeee;
+}
+
+.messages {
+    height: 500px;
+    overflow-y: scroll;
+}
+
+.user-messagebox {
+    background-color: #e5f8f8; /* 薄い青色の背景 */
+}
+
+.system-messagebox {
+    background-color: #feefde; /* 薄い橙色の背景 */
+}
+
+.message-icon {
+    display: flex;
+    justify-content: center;
+    font-size: 2em;
+}
+
+.footer {
+    font-size: small;
+    margin-bottom: 0;
+  }
+
+@media (max-width: 576px) {
+    .col-icon {
+      flex: 0 0 auto;
+      width: 20%;
+    }
+    .col-text {
+        flex: 0 0 auto;
+        width: 60%;
+      }
+    .container {
+        max-width: 95%;
+    }
+    .messages {
+        height: 420px;
+    }
+  }

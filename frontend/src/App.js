@@ -3,14 +3,15 @@ import { useMessageHandler } from './MessageHandler';
 import { useSpeechRecognitionHandler } from './SpeechRecognitionHandler';
 import { useMessageSynthesizer} from './MessageSynthesizer';
 import { Container, Row, Col, Button} from 'react-bootstrap';
-import { RiUser5Line, RiRobot2Line } from "react-icons/ri";
+import { RiUser5Line, RiRobot2Line, RiMicFill, RiMicOffLine } from "react-icons/ri";
+import { PiBird, PiCoffee } from "react-icons/pi";
 import './App.css';
 
 // 全体 Let's have a dynamic dialogue!
 const App = () => {
   const { simulateResponse, messageEmitter } = useMessageSynthesizer();
   const { messages, sendMessage, websocketStatus } = useMessageHandler(simulateResponse, messageEmitter);
-  const { transcript, listening, browserSupportsSpeechRecognition, isMicOn, handleMicOnOff } = useSpeechRecognitionHandler(sendMessage);
+  const { transcript, browserSupportsSpeechRecognition, isMicOn, handleMicOnOff } = useSpeechRecognitionHandler(sendMessage);
 
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser doesn't support speech recognition.</span>;
@@ -56,13 +57,15 @@ const App = () => {
       <Row>
         <Container className="p-1">
           <Row className="align-items-center">
-            <Col> Websocket: { websocketStatus }</Col>
-            <Col> Microphone: {listening ? 'on' : 'off'} </Col>
+            <Col> {websocketStatus === 'connected' ?
+                    <PiBird className="icon"/>
+                  : <PiCoffee className="icon"/>
+                  }</Col>
             <Col className="text-end">
               {isMicOn ? (
-              <Button variant="danger" onClick={handleMicOnOff}>とめる</Button>
-            ) : (
-              <Button variant="primary" onClick={handleMicOnOff}>はじめる</Button>
+                <><RiMicFill className='icon' /> <Button variant="danger" onClick={handleMicOnOff}>とめる</Button></>
+              ) : (
+                <><RiMicOffLine className='icon' /> <Button variant="primary" onClick={handleMicOnOff}>はじめる</Button></>
               )}
             </Col>
           </Row>
@@ -73,7 +76,9 @@ const App = () => {
       {transcript}
     </Container>
     <Container className="p-1 footer">
-      <a href="https://github.com/piijey/dialdynamo">このページのソースコードを見る (GitHub)</a>
+      <div className='align-items-center'>
+      <img src={process.env.PUBLIC_URL + '/231228_white.png'} alt="xipj icon" width={30} height={30}/><a href="https://github.com/piijey/dialdynamo">このページのソースコードを見る (GitHub)</a>
+      </div>
     </Container>
   </div>
   );

@@ -9,13 +9,12 @@ export const useSpeechRecognitionHandler = (sendMessage) => {
 
     // マイクのオンオフ
     function handleMicOnOff() {
-        const newMicState = !isMicOn;
-        setIsMicOn(newMicState);
-    
-        if (newMicState) {
-            SpeechRecognition.startListening({ continuous: true });
-        } else {
+        setIsMicOn(!listening)
+        if (listening) {
             SpeechRecognition.stopListening();
+        }
+        else {
+            SpeechRecognition.startListening({ continuous: true });
         }
     }
     // transcript が更新されるたびにサーバへ送信

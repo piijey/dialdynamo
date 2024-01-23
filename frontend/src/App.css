@@ -29,6 +29,11 @@
     font-size: 2em;
 }
 
+.icon{
+    font-size:1.5em;
+    margin-bottom: 0;
+}
+
 .footer {
     font-size: small;
     margin-bottom: 0;

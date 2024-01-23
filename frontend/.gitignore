@@ -21,3 +21,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 *~
+
+# kuromoji
+# cp -r node_modules/kuromoji/dict public/kuromoji-dict
+public/kuromoji-dict

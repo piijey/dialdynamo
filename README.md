@@ -33,13 +33,15 @@
 
 ### フロントエンド
 - React で書いています
-- 音声認識は、[react-speech-recognition](https://www.npmjs.com/package/react-speech-recognition) でブラウザの音声入力を利用します
-- ボタンを見やすくするために [react-bootstrap](https://react-bootstrap.netlify.app/) を入れています
+- 音声認識 [react-speech-recognition](https://www.npmjs.com/package/react-speech-recognition) でブラウザの音声入力を利用します
+- 形態素解析器 [kuromoji.js](https://github.com/takuyaa/kuromoji.js)
+- デザインとアイコン [react-bootstrap](https://react-bootstrap.netlify.app/)、[React Icons](https://react-icons.github.io/react-icons/)
 
 **インストール**
 ```sh
 cd frontend
 npm install
+cp node_modules/kuromoji/dict/* public/kuromoji-dict/    #kuromoji の辞書をコピー
 ```
 
 **開発用サーバの起動**
